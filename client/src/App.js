@@ -1,4 +1,13 @@
 import React, { useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useHistory
+} from "react-router-dom";
 import './App.css';
 import {
   PageContainer,
@@ -21,141 +30,109 @@ import Select from 'react-select';
 import subjectData from './SubjectData';
 
 
-class Onboard extends React.Component {
-  state = {
-    step: 1,
-    user: {}
-  }
-
-  submit = () => {
-    console.log("submit")
-  };
-
-  next = () => {
-    let currentStep = this.state.step;
-    // switch(currentStep) {
-    //   case 1:
-    //     break;
-    //   case 2:
-    //     break;
-    //   case 3:
-    //     break;
-    //   default:
-    //     break;
-    // }
-    this.setState({step: currentStep + 1})
-  };
-
-  prev = () => {
-    let currentStep = this.state.step;
-    this.setState({step: currentStep - 1})
-  };
-
-  handleChange = () => {
-    console.log('handle')
-  };
-
-  getCurrentPanel = () => {
-    switch(this.state.step) {
-      default:
-        return <h1>User Forms not working. Enable Javascript!</h1>;
-      case 1:
-        return (
-          <AboutYou 
-            user={this.state.user}
-            next={this.next}
-            handleChange={this.handleChange}
-          />
-        )
-      case 2: 
-        return (
-          <Subjects 
-            user={this.state.user}
-            prev={this.prev}
-            next={this.next}
-            handleChange={this.handleChange}
-          />
-        )
-      case 3:
-        return (
-          <SubjectDetails 
-            user={this.state.user}
-            prev={this.prev}
-            submit={this.submit}
-            handleChange={this.handleChange}
-          />
-        )
-    }
-  }
-
-  getHeader = () => {
-     return (
-      <PanelColumnsContainer>
-        <PanelProgress primary={1 === this.state.step}>
-          About You
-        </PanelProgress>  
-        <PanelProgress primary={2 === this.state.step}>
-          Subjects
-        </PanelProgress>  
-        <PanelProgress primary={3 === this.state.step}>
-          Subject Details
-        </PanelProgress>  
-      </PanelColumnsContainer>
-     ) 
-  };
-
-  render() {
-    const { step, user } = this.state;
+const Onboard = () => {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [user, setUser] = useState();
 
 
-    let currentHeader = this.getHeader();
-    let currentPanel = this.getCurrentPanel(); 
+  let { path, url } = useRouteMatch();
+  return (
+    <Router>
+      <Switch>
+        <Route exact path={path}>
+          <Redirect to={`${path}/aboutyou`} />
+        </Route>
+        <Route path={`${path}/aboutyou`}>
+          <AboutYou />
+        </Route>
+        <Route path={`${path}/subjects`}>
+          <Subjects />
+        </Route>
+        <Route path={`${path}/subjectdetails`}>
+          <SubjectDetails />
+        </Route>
+      </Switch>
+    </Router>
+  );
+  
+}
 
-    return (
-      <React.Fragment>
-        <PanelContainer>
-          {currentHeader}
-          {currentPanel}
-        </PanelContainer>
-        {(step !== 1) && <button onClick={this.prev}>Back</button>}
-        <button onClick={this.next}>Continue</button>
-      </React.Fragment>
-    )
+const AboutYou = ({}) => {
+  
+  return (
+    <React.Fragment>
+      <PanelContainer>
+        <PanelColumnsContainer>
+          <PanelProgress primary>
+            About You
+          </PanelProgress>  
+          <PanelProgress>
+            Subjects
+          </PanelProgress>  
+          <PanelProgress>
+            Subject Details
+          </PanelProgress>  
+        </PanelColumnsContainer>
+        <PanelSection>
+          <PanelSectionTitle>
+            About You
+          </PanelSectionTitle>
+          <PanelMainColumn>
+            This is some sample text
+          </PanelMainColumn>
+        </PanelSection>
+      </PanelContainer>
+      <Link to="/onboard/subjects">next</Link>
+    </React.Fragment>
     
-  }
-}
-
-const AboutYou = ({user, next, handleChange}) => {
-  return (
-    <PanelSection>
-      <PanelSectionTitle>
-        About You
-      </PanelSectionTitle>
-      <PanelMainColumn>
-        This is some sample text
-      </PanelMainColumn>
-    </PanelSection>
   )
 }
 
-const Subjects = ({user, prev, next, handleChange}) => {
+const Subjects = ({}) => {
   return (
-    <PanelSection>
-      <PanelSectionTitle>
-        Subjects
-      </PanelSectionTitle>
-      Select 2 subjects you're most qualified to teach. You can edit these or add more subjects later.
-      {/* <Select options={subjectOptions} onChange={handleSubjectChange} />
-      {subject !== "" && <Select 
-        options={courseOptions} 
-        onChange={handleCourseChange}
-        isMulti/>} */}
-    </PanelSection>
+    <React.Fragment>
+      <PanelContainer>
+        <PanelColumnsContainer>
+          <PanelProgress>
+            About You
+          </PanelProgress>  
+          <PanelProgress primary>
+            Subjects
+          </PanelProgress>  
+          <PanelProgress>
+            Subject Details
+          </PanelProgress>  
+        </PanelColumnsContainer>
+        <PanelSection>
+          <PanelSectionTitle>
+            Subjects
+          </PanelSectionTitle>
+          <PanelMainColumn>
+            This is some sample text
+          </PanelMainColumn>
+        </PanelSection>
+      </PanelContainer>
+      <Link to="/onboard/aboutyou">prev</Link>
+      <Link to="/onboard/subjectdetails">next</Link>
+    </React.Fragment>
   )
 }
 
-const SubjectDetails = ({user, prev, submit, handleChange}) => {
+const SubjectDetails = ({}) => {
   return (
+    <React.Fragment>
+      <PanelContainer>
+        <PanelColumnsContainer>
+          <PanelProgress>
+            About You
+          </PanelProgress>  
+          <PanelProgress>
+            Subjects
+          </PanelProgress>  
+          <PanelProgress primary>
+            Subject Details
+          </PanelProgress>  
+        </PanelColumnsContainer>
         <PanelSection>
           <PanelSectionTitle>
             Subject Details
@@ -164,9 +141,31 @@ const SubjectDetails = ({user, prev, submit, handleChange}) => {
             This is some sample text
           </PanelMainColumn>
         </PanelSection>
-        
+      </PanelContainer>
+      <Link to="/onboard/subjects">prev</Link>
+    </React.Fragment>
   );
 }
+
+// const Subjects = ({user, prev, next, handleChange}) => {
+//   return (
+//     <PanelSection>
+//       <PanelSectionTitle>
+//         Subjects
+//       </PanelSectionTitle>
+//       Select 2 subjects you're most qualified to teach. You can edit these or add more subjects later.
+//       {/* <Select options={subjectOptions} onChange={handleSubjectChange} />
+//       {subject !== "" && <Select 
+//         options={courseOptions} 
+//         onChange={handleCourseChange}
+//         isMulti/>} */}
+//     </PanelSection>
+//   )
+// }
+
+
+
+
 
 // const Subjects = () => {
 //   const [subject, setSubject] = useState("")
@@ -222,16 +221,129 @@ const SubjectDetails = ({user, prev, submit, handleChange}) => {
 //   );
 // };
 
+// class Onboard extends React.Component {
+//   state = {
+//     step: 1,
+//     user: {}
+//   }
+
+//   submit = () => {
+//     console.log("submit")
+//   };
+
+//   next = () => {
+//     let currentStep = this.state.step;
+//     // switch(currentStep) {
+//     //   case 1:
+//     //     break;
+//     //   case 2:
+//     //     break;
+//     //   case 3:
+//     //     break;
+//     //   default:
+//     //     break;
+//     // }
+//     this.setState({step: currentStep + 1})
+//   };
+
+//   prev = () => {
+//     let currentStep = this.state.step;
+//     this.setState({step: currentStep - 1})
+//   };
+
+//   handleChange = () => {
+//     console.log('handle')
+//   };
+
+//   getCurrentPanel = () => {
+//     switch(this.state.step) {
+//       default:
+//         return <h1>User Forms not working. Enable Javascript!</h1>;
+//       case 1:
+//         return (
+//           <AboutYou 
+//             user={this.state.user}
+//             next={this.next}
+//             handleChange={this.handleChange}
+//           />
+//         )
+//       case 2: 
+//         return (
+//           <Subjects 
+//             user={this.state.user}
+//             prev={this.prev}
+//             next={this.next}
+//             handleChange={this.handleChange}
+//           />
+//         )
+//       case 3:
+//         return (
+//           <SubjectDetails 
+//             user={this.state.user}
+//             prev={this.prev}
+//             submit={this.submit}
+//             handleChange={this.handleChange}
+//           />
+//         )
+//     }
+//   }
+
+//   getHeader = () => {
+//      return (
+//       <PanelColumnsContainer>
+//         <PanelProgress primary={1 === this.state.step}>
+//           About You
+//         </PanelProgress>  
+//         <PanelProgress primary={2 === this.state.step}>
+//           Subjects
+//         </PanelProgress>  
+//         <PanelProgress primary={3 === this.state.step}>
+//           Subject Details
+//         </PanelProgress>  
+//       </PanelColumnsContainer>
+//      ) 
+//   };
+
+//   render() {
+//     const { step, user } = this.state;
+
+
+//     let currentHeader = this.getHeader();
+//     let currentPanel = this.getCurrentPanel(); 
+
+//     return (
+//       <React.Fragment>
+//         <PanelContainer>
+//           {currentHeader}
+//           {currentPanel}
+//         </PanelContainer>
+//         {(step !== 1) && <button onClick={this.prev}>Back</button>}
+//         <button onClick={this.next}>Continue</button>
+//       </React.Fragment>
+//     )
+    
+//   }
+// }
+
 function App() {
   return (
-    <PageContainer>
-      <PageNavBar>
-        <Logo src="./logo.svg" />
-      </PageNavBar>
-      <PageContentContainer>
-        <Onboard />
-      </PageContentContainer>
-    </PageContainer>
+    <Router>
+      <PageContainer>
+        <PageNavBar>
+          <Logo src="./logo.svg" />
+        </PageNavBar>
+        <PageContentContainer>
+          <Switch>
+            <Route exact path="/">
+              <Redirect to="/onboard" />
+            </Route>
+            <Route path="/onboard">
+              <Onboard />
+            </Route>
+          </Switch>
+        </PageContentContainer>
+      </PageContainer>
+    </Router>
   );
 }
 
