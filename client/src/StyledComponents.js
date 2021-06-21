@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 /*
 |--------------------------------------------------------------------------
@@ -49,10 +49,11 @@ export const PanelContainerHeading = styled.div`
 `;
 export const PanelColumnsContainer = styled.div`
   display: flex;
-  justify-content: center;
-  @media (max-width: 720px) {
-    flex-direction: column;
-  }
+  justify-content: space-evenly;
+
+  // @media (max-width: 720px) {
+  //   flex-direction: column;
+  // }
 `;
 export const PanelMainColumn = styled.div`
   flex-grow: 1;
@@ -72,6 +73,31 @@ export const PanelSection = styled.div`
     border-bottom: 1px solid #e3eaef;
   }
 `;
+
+export const PanelProgress = styled.div`
+  display: flex;
+  justify-content: center; 
+  background: white;
+  color: black;
+  padding: 18px;
+  width: 100%;
+  ${props => {
+    if(props.primary) {
+      return css`
+        background: black;
+        color: white
+      `
+    } else {
+      return css`
+        @media (max-width: 720px) {
+          display: none;
+        }
+      `
+    }
+  }}
+`;
+
+
 export const PanelSectionTitle = styled.h3`
   font-weight: 700;
   margin: 0px;
