@@ -32,8 +32,11 @@ import subjectData from './SubjectData';
 
 const Onboard = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [user, setUser] = useState();
-
+  const [user, setUser] = useState({
+    firstName: "Robert",
+    lastName: "Clarkson",
+    subjects: []
+  });
 
   let { path, url } = useRouteMatch();
   return (
@@ -43,22 +46,22 @@ const Onboard = () => {
           <Redirect to={`${path}/aboutyou`} />
         </Route>
         <Route path={`${path}/aboutyou`}>
-          <AboutYou />
+          <AboutYou user={user} setUser={setUser} />
         </Route>
         <Route path={`${path}/subjects`}>
-          <Subjects />
+          <Subjects user={user} setUser={setUser} />
         </Route>
         <Route path={`${path}/subjectdetails`}>
-          <SubjectDetails />
+          <SubjectDetails user={user} setUser={setUser} />
         </Route>
       </Switch>
+      <button onClick={() => console.log(user)}>state</button>
     </Router>
   );
   
 }
 
-const AboutYou = ({}) => {
-  
+const AboutYou = ({user, setUser}) => {
   return (
     <React.Fragment>
       <PanelContainer>
@@ -78,17 +81,48 @@ const AboutYou = ({}) => {
             About You
           </PanelSectionTitle>
           <PanelMainColumn>
-            This is some sample text
+            <p>{user.firstName}</p>
+            <p>{user.lastName}</p>
           </PanelMainColumn>
         </PanelSection>
       </PanelContainer>
-      <Link to="/onboard/subjects">next</Link>
+      <Link to="/onboard/subjects" >next</Link>
     </React.Fragment>
     
   )
 }
 
-const Subjects = ({}) => {
+const Subjects = ({user, setUser}) => {    
+
+  const handleSubjectChange = (e) => {
+    if (! user.subjects.some((ele) => (e.value === ele.name))) {
+      let newUserState = user;
+      newUserState.subjects.push({
+        label: e.label,
+        value: e.value,
+        courses: []
+      })
+      setUser(newUserState)
+    }
+  }
+
+
+  /* SUBJECT VALUES */
+  let subject_0 = "";
+  let subject_1 = "";
+  if(user.subjects.length > 0) {
+    subject_0 = {
+      label: user.subjects[0].label,
+      value: user.subjects[0].value
+    };
+  } 
+  if(user.subjects.lenth > 1) {
+    subject_1 = {
+      label: user.subjects[0].label,
+      value: user.subjects[0].value
+    };
+  }
+  // console.log(subject_0)
   return (
     <React.Fragment>
       <PanelContainer>
@@ -108,7 +142,20 @@ const Subjects = ({}) => {
             Subjects
           </PanelSectionTitle>
           <PanelMainColumn>
-            This is some sample text
+            Select 2 subjects you're most qualified to teach. You can edit these or add more subjects later.
+            <Select 
+                defaultValue={subject_0}
+                options={subjectData.map((ele) => {
+                  return {
+                    label: ele.name,
+                    value: ele.name.toLowerCase()
+                  }
+                })} 
+                onChange={handleSubjectChange} />
+            {/* <Select 
+                options={courseOptions} 
+                // onChange={handleCourseChange}
+                isMulti/> */}
           </PanelMainColumn>
         </PanelSection>
       </PanelContainer>
@@ -138,6 +185,7 @@ const SubjectDetails = ({}) => {
             Subject Details
           </PanelSectionTitle>
           <PanelMainColumn>
+            
             This is some sample text
           </PanelMainColumn>
         </PanelSection>
@@ -330,7 +378,7 @@ function App() {
     <Router>
       <PageContainer>
         <PageNavBar>
-          <Logo src="./logo.svg" />
+          <Logo src="/logo.svg" />
         </PageNavBar>
         <PageContentContainer>
           <Switch>
