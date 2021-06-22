@@ -4,7 +4,6 @@ import {
   Redirect,
   Switch,
   Route,
-  Link,
   useRouteMatch,
   useHistory
 } from "react-router-dom";
@@ -12,14 +11,10 @@ import './App.css';
 import {
   PageContainer,
   PageContentContainer,
-  PageTitle,
   PanelContainer,
   PanelColumnsContainer,
-  PanelMainColumn,
-  PanelSideColumn,
   PanelSection,
   PanelSectionTitle,
-  StyledTextInput,
   PanelSectionHeader,
   PageNavBar,
   Logo,
@@ -37,7 +32,6 @@ import { Button } from '@material-ui/core';
 
 
 const Onboard = () => {
-  const [currentStep, setCurrentStep] = useState(0);
   const [user, setUser] = useState({
     firstName: "Robert",
     lastName: "Clarkson",
@@ -47,7 +41,7 @@ const Onboard = () => {
     courses_1: []
   });
 
-  let { path, url } = useRouteMatch();
+  let { path } = useRouteMatch();
   return (
     <Router>
       {/* <button onClick={() => console.log(user)}>state</button> */}
@@ -122,7 +116,6 @@ const AboutYou = ({user, setUser}) => {
 const Subjects = ({user, setUser}) => {    
 
   const setSubject = (index, subject) => {
-    /* Need to clear courses if changing from 1 subject to another */
     if (index === 0) {
       setUser({
         ...user,
@@ -231,7 +224,7 @@ const Subjects = ({user, setUser}) => {
                     isMulti/>
               </Col>
             </Row>
-            {/* <Row>
+            <Row>
               <Col width={"30%"}>
                 <PanelSectionHeader>Subject</PanelSectionHeader>
                 {user.subject_0 !== null && <Select 
@@ -247,7 +240,7 @@ const Subjects = ({user, setUser}) => {
                   onChange={(courses) => setCourses(1, courses)}
                   isMulti/>}
               </Col>
-            </Row> */}
+            </Row>
           </PanelSectionBody>
         </PanelSection>
       </PanelContainer>
@@ -278,7 +271,7 @@ const Subjects = ({user, setUser}) => {
 }
 
 
-const SubjectDetails = ({}) => {
+const SubjectDetails = ({user, setUser}) => {
   const { push } = useHistory();
   return (
     <React.Fragment>
