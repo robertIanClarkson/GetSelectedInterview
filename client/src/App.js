@@ -134,12 +134,24 @@ const Subjects = ({user, setUser}) => {
   /* Subject 0 Options */
   let subjectOptions_0 = [];
   let courseOptions_0 = [];
-  subjectOptions_0 = subjectData.map((ele) => {
-        return {
-          label: ele.name,
-          value: ele.name.toLowerCase()
-        }
-      })
+  if (user.subject_1 !== null) {
+    for (const subject of subjectData) {
+      if (subject.name !== user.subject_1.label) {
+        subjectOptions_0.push({
+          label: subject.name,
+          value: subject.name.toLowerCase()
+        })
+      }
+    }
+  } else {
+    subjectOptions_0 = subjectData.map((ele) => {
+      return {
+        label: ele.name,
+        value: ele.name.toLowerCase()
+      }
+    })
+  }
+  
   
   if (user.subject_0 !== null) {
     courseOptions_0 = subjectData.find(ele => ele.name === user.subject_0.label).courses.map(ele => ({label: ele, value: ele.toLowerCase()}))
