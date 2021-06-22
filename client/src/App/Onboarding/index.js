@@ -7,9 +7,9 @@ import {
   useRouteMatch
 } from "react-router-dom";
 
-import AboutYou from './AboutYou';
-import Subjects from './Subjects';
-import SubjectDetails from './SubjectDetails';
+import AboutYou from './AboutYouComponent';
+import Subjects from './SubjectsComponent';
+import SubjectDetails from './SubjectDetailsComponent';
 
 const Onboarding = () => {
   const [user, setUser] = useState({
