@@ -35,8 +35,8 @@ const Onboard = () => {
   const [user, setUser] = useState({
     firstName: "Robert",
     lastName: "Clarkson",
-    subject_0: "",
-    subject_1: "",
+    subject_0: null,
+    subject_1: null,
     courses_0: [],
     courses_1: []
   });
@@ -100,15 +100,18 @@ const AboutYou = ({user, setUser}) => {
 const Subjects = ({user, setUser}) => {    
 
   const setSubject = (index, subject) => {
+    /* Need to clear courses if changing from 1 subject to another */
     if (index === 0) {
       setUser({
         ...user,
-        subject_0: subject
+        subject_0: subject,
+        courses_0: []
       }) 
     } else if (index === 1) {
       setUser({
         ...user,
-        subject_1: subject
+        subject_1: subject,
+        courses_1: []
       })
     }
   }
@@ -126,7 +129,41 @@ const Subjects = ({user, setUser}) => {
       })
     }
   }
-  // console.log(user.subject_0)
+  
+
+  /* Subject 0 Options */
+  let subjectOptions_0 = [];
+  let courseOptions_0 = [];
+  subjectOptions_0 = subjectData.map((ele) => {
+        return {
+          label: ele.name,
+          value: ele.name.toLowerCase()
+        }
+      })
+  
+  if (user.subject_0 !== null) {
+    courseOptions_0 = subjectData.find(ele => ele.name === user.subject_0.label).courses.map(ele => ({label: ele, value: ele.toLowerCase()}))
+  }
+  
+  /* Subject 1 Options */
+  let subjectOptions_1 = [];
+  let courseOptions_1 = [];
+  
+  if (user.subject_0 !== null) {
+    for (const subject of subjectData) {
+      if (subject.name !== user.subject_0.label) {
+        subjectOptions_1.push({
+          label: subject.name,
+          value: subject.name.toLowerCase()
+        })
+      }
+    }
+  }
+  
+  if (user.subject_1 !== null) {
+    courseOptions_1 = subjectData.find(ele => ele.name === user.subject_1.label).courses.map(ele => ({label: ele, value: ele.toLowerCase()}))
+  }
+
   return (
     <React.Fragment>
       <PanelContainer>
@@ -149,17 +186,21 @@ const Subjects = ({user, setUser}) => {
             Select 2 subjects you're most qualified to teach. You can edit these or add more subjects later.
             <Select 
                 defaultValue={user.subject_0}
-                options={subjectData.map((ele) => {
-                  return {
-                    label: ele.name,
-                    value: ele.name.toLowerCase()
-                  }
-                })} 
+                options={subjectOptions_0} 
                 onChange={(subject) => setSubject(0, subject)} />
-            {user.subject_0 !== "" && <Select 
+            <Select 
                 value={user.courses_0}
-                options={subjectData.find(ele => ele.name === user.subject_0.label).courses.map(ele => ({label: ele, value: ele.toLowerCase()}))} 
+                options={courseOptions_0} 
                 onChange={(courses) => setCourses(0, courses)}
+                isMulti/>
+            {user.subject_0 !== null && <Select 
+                defaultValue={user.subject_1}
+                options={subjectOptions_1} 
+                onChange={(subject) => setSubject(1, subject)} />}
+            {user.subject_0 !== null && <Select 
+                value={user.courses_1}
+                options={courseOptions_1} 
+                onChange={(courses) => setCourses(1, courses)}
                 isMulti/>}
                 
           </PanelMainColumn>
