@@ -1,6 +1,4 @@
-import React from "react";
-import styled from "styled-components";
-
+import styled, { css } from "styled-components";
 /*
 |--------------------------------------------------------------------------
 | Page
@@ -9,14 +7,17 @@ import styled from "styled-components";
 
 export const PageContainer = styled.div`
   font-family: "Quicksand", sans-serif;
-  // padding: 18px;
   min-height: 100vh;
+  background: #F8F9FA;
 `;
 export const PageContentContainer = styled.div`
   position: relative;
   margin: auto;
   max-width: 960px;
   padding: 36px;
+  @media (max-width: 720px) {
+    padding: 12px;
+  }
 `;
 
 export const PageTitle = styled.h1`
@@ -25,7 +26,10 @@ export const PageTitle = styled.h1`
 `;
 
 export const PageNavBar = styled.div`
-  background: black;
+  background: #FFFFFF;
+  // box-shadow: 0px 3px 6px #0000000d;
+  box-shadow: 0px 2px 10px 2px rgba(0,0,0,0.1);; 
+}
 `;
 
 /*
@@ -38,8 +42,9 @@ export const PanelContainer = styled.div`
   background: white;
   box-shadow: 0px 3px 6px #0000000d;
   border: 1px solid #e3eaef;
-  border-radius: 4px;
+  border-radius: 6px;
   margin-bottom: 24px;
+  min-height: 400px;
 `;
 export const PanelContainerHeading = styled.div`
   font-weight: 700;
@@ -49,14 +54,11 @@ export const PanelContainerHeading = styled.div`
 `;
 export const PanelColumnsContainer = styled.div`
   display: flex;
-  justify-content: center;
-  @media (max-width: 720px) {
-    flex-direction: column;
-  }
+  justify-content: space-evenly;
 `;
 export const PanelMainColumn = styled.div`
   flex-grow: 1;
-  width: 50%;
+  width: 80%;
   @media (max-width: 720px) {
     width: 100%;
   }
@@ -67,21 +69,67 @@ export const PanelSideColumn = styled.div`
   margin-right: ${({ marginRight }) => marginRight && `20px`};
 `;
 export const PanelSection = styled.div`
-  padding: 16px;
-  &:not(:last-child) {
-    border-bottom: 1px solid #e3eaef;
+  padding: 24px;
+  border-top: 1px solid #F1F5F7;
+  @media (max-width: 720px) {
+    padding: 18px;
   }
 `;
-export const PanelSectionTitle = styled.h3`
+
+export const PanelProgress = styled.div`
+  display: flex;
+  justify-content: center; 
+  background: white;
+  color: black;
+  padding: 18px;
+  width: 100%;
+  border: 1px solid #F1F5F7;
+  font-weight: 700;
+  ${props => {
+    if(props.primary) {
+      return css`
+        background: #2E595C;
+        color: white;
+        @media (max-width: 720px) {
+          border-radius: 6px 6px 0px 0px;
+        }
+      `
+    } else {
+      return css`
+        @media (max-width: 720px) {
+          display: none;
+        }
+      `
+    }
+  }}
+`;
+
+
+export const PanelSectionTitle = styled.h2`
   font-weight: 700;
   margin: 0px;
 `;
 
+export const PanelSectionDescription = styled.h3`
+  font-weight: 400;
+  color: #69768A;
+  line-height: 1.6;
+`;
+
+export const PanelSectionBody = styled.div`
+  color: #2E595C;
+`;
+
 export const PanelSectionHeader = styled.h4`
   font-weight: 600;
-  font-size: 0.8em;
+  font-size: 1em;
   margin: 0 0 3px;
-  text-decoration: underline;
+`;
+
+export const PanelNavigation = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 /*
@@ -102,6 +150,26 @@ export const StyledTextInput = styled.input`
 `;
 
 export const Logo = styled.img`
-  margin: 15px;
-  height: 60px;
+  margin: 5px;
+  height: 50px;
+  padding-left: 20px;
+`;
+
+export const Row = styled.div`
+
+  display: flex;
+  flex-direction: row;
+  margin: 0px;
+  padding-bottom: 24px;
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
+`;
+
+export const Col = styled.div`
+  padding: 10px;
+  width: ${({ width }) => width};
+  @media (max-width: 720px) {
+    width: auto;
+  }
 `;
