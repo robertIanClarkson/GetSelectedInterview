@@ -35,7 +35,10 @@ const Onboard = () => {
   const [user, setUser] = useState({
     firstName: "Robert",
     lastName: "Clarkson",
-    subjects: []
+    subject_0: "",
+    subject_1: "",
+    courses_0: [],
+    courses_1: []
   });
 
   let { path, url } = useRouteMatch();
@@ -61,6 +64,7 @@ const Onboard = () => {
   
 }
 
+
 const AboutYou = ({user, setUser}) => {
   return (
     <React.Fragment>
@@ -81,8 +85,8 @@ const AboutYou = ({user, setUser}) => {
             About You
           </PanelSectionTitle>
           <PanelMainColumn>
-            <p>{user.firstName}</p>
-            <p>{user.lastName}</p>
+            <p>First Name: {user.firstName}</p>
+            <p>Last Name: {user.lastName}</p>
           </PanelMainColumn>
         </PanelSection>
       </PanelContainer>
@@ -92,37 +96,37 @@ const AboutYou = ({user, setUser}) => {
   )
 }
 
+
 const Subjects = ({user, setUser}) => {    
 
-  const handleSubjectChange = (e) => {
-    if (! user.subjects.some((ele) => (e.value === ele.name))) {
-      let newUserState = user;
-      newUserState.subjects.push({
-        label: e.label,
-        value: e.value,
-        courses: []
+  const setSubject = (index, subject) => {
+    if (index === 0) {
+      setUser({
+        ...user,
+        subject_0: subject
+      }) 
+    } else if (index === 1) {
+      setUser({
+        ...user,
+        subject_1: subject
       })
-      setUser(newUserState)
     }
   }
 
-
-  /* SUBJECT VALUES */
-  let subject_0 = "";
-  let subject_1 = "";
-  if(user.subjects.length > 0) {
-    subject_0 = {
-      label: user.subjects[0].label,
-      value: user.subjects[0].value
-    };
-  } 
-  if(user.subjects.lenth > 1) {
-    subject_1 = {
-      label: user.subjects[0].label,
-      value: user.subjects[0].value
-    };
+  const setCourses = (index, courses) => {
+    if (index === 0) {
+      setUser({
+        ...user,
+        courses_0: courses
+      }) 
+    } else if (index === 1) {
+      setUser({
+        ...user,
+        courses_1: courses
+      })
+    }
   }
-  // console.log(subject_0)
+  // console.log(user.subject_0)
   return (
     <React.Fragment>
       <PanelContainer>
@@ -144,18 +148,20 @@ const Subjects = ({user, setUser}) => {
           <PanelMainColumn>
             Select 2 subjects you're most qualified to teach. You can edit these or add more subjects later.
             <Select 
-                defaultValue={subject_0}
+                defaultValue={user.subject_0}
                 options={subjectData.map((ele) => {
                   return {
                     label: ele.name,
                     value: ele.name.toLowerCase()
                   }
                 })} 
-                onChange={handleSubjectChange} />
-            {/* <Select 
-                options={courseOptions} 
-                // onChange={handleCourseChange}
-                isMulti/> */}
+                onChange={(subject) => setSubject(0, subject)} />
+            {user.subject_0 !== "" && <Select 
+                value={user.courses_0}
+                options={subjectData.find(ele => ele.name === user.subject_0.label).courses.map(ele => ({label: ele, value: ele.toLowerCase()}))} 
+                onChange={(courses) => setCourses(0, courses)}
+                isMulti/>}
+                
           </PanelMainColumn>
         </PanelSection>
       </PanelContainer>
@@ -164,6 +170,7 @@ const Subjects = ({user, setUser}) => {
     </React.Fragment>
   )
 }
+
 
 const SubjectDetails = ({}) => {
   return (
@@ -194,184 +201,6 @@ const SubjectDetails = ({}) => {
     </React.Fragment>
   );
 }
-
-// const Subjects = ({user, prev, next, handleChange}) => {
-//   return (
-//     <PanelSection>
-//       <PanelSectionTitle>
-//         Subjects
-//       </PanelSectionTitle>
-//       Select 2 subjects you're most qualified to teach. You can edit these or add more subjects later.
-//       {/* <Select options={subjectOptions} onChange={handleSubjectChange} />
-//       {subject !== "" && <Select 
-//         options={courseOptions} 
-//         onChange={handleCourseChange}
-//         isMulti/>} */}
-//     </PanelSection>
-//   )
-// }
-
-
-
-
-
-// const Subjects = () => {
-//   const [subject, setSubject] = useState("")
-//   const [courses, setCourses] = useState([])
-
-//   let subjectOptions = [];
-//   for(const subject of subjectData) {
-//     subjectOptions.push({
-//       label: subject.name,
-//       value: subject.courses
-//     });
-//   }
-
-//   const handleSubjectChange = (e) => {
-//     setSubject(e.label);
-//   };
-
-//   const handleCourseChange = (e) => {
-//     let temp = []
-//     for (const course of e) {
-//       temp.push(course.value)
-//     }
-//     setCourses(temp)
-//   };
-
-//   let courseOptions = []
-//   if(subject) {
-//     for (const course of subjectData.find((sub) => sub.name === subject).courses) {
-//       courseOptions.push({
-//         value: course,
-//         label: course
-//       })
-//     }
-//   }
-//   return (
-    // <PanelContainer>
-    //   <PanelSection>
-    //     <PanelSectionTitle>
-    //       Subjects
-    //     </PanelSectionTitle>
-    //     <PanelMainColumn>
-    //       Select 2 subjects you're most qualified to teach. You can edit these or add more subjects later.
-    //       <Select options={subjectOptions} onChange={handleSubjectChange} />
-    //       {subject !== "" && <Select 
-    //         options={courseOptions} 
-    //         onChange={handleCourseChange}
-    //         isMulti/>}
-    //     </PanelMainColumn>
-    //   </PanelSection>
-    //   <button onClick={() => console.log(subject, courses)}>back</button>
-    //   <button onClick={() => console.log(subject, courses)}>submit</button>
-    // </PanelContainer>
-//   );
-// };
-
-// class Onboard extends React.Component {
-//   state = {
-//     step: 1,
-//     user: {}
-//   }
-
-//   submit = () => {
-//     console.log("submit")
-//   };
-
-//   next = () => {
-//     let currentStep = this.state.step;
-//     // switch(currentStep) {
-//     //   case 1:
-//     //     break;
-//     //   case 2:
-//     //     break;
-//     //   case 3:
-//     //     break;
-//     //   default:
-//     //     break;
-//     // }
-//     this.setState({step: currentStep + 1})
-//   };
-
-//   prev = () => {
-//     let currentStep = this.state.step;
-//     this.setState({step: currentStep - 1})
-//   };
-
-//   handleChange = () => {
-//     console.log('handle')
-//   };
-
-//   getCurrentPanel = () => {
-//     switch(this.state.step) {
-//       default:
-//         return <h1>User Forms not working. Enable Javascript!</h1>;
-//       case 1:
-//         return (
-//           <AboutYou 
-//             user={this.state.user}
-//             next={this.next}
-//             handleChange={this.handleChange}
-//           />
-//         )
-//       case 2: 
-//         return (
-//           <Subjects 
-//             user={this.state.user}
-//             prev={this.prev}
-//             next={this.next}
-//             handleChange={this.handleChange}
-//           />
-//         )
-//       case 3:
-//         return (
-//           <SubjectDetails 
-//             user={this.state.user}
-//             prev={this.prev}
-//             submit={this.submit}
-//             handleChange={this.handleChange}
-//           />
-//         )
-//     }
-//   }
-
-//   getHeader = () => {
-//      return (
-//       <PanelColumnsContainer>
-//         <PanelProgress primary={1 === this.state.step}>
-//           About You
-//         </PanelProgress>  
-//         <PanelProgress primary={2 === this.state.step}>
-//           Subjects
-//         </PanelProgress>  
-//         <PanelProgress primary={3 === this.state.step}>
-//           Subject Details
-//         </PanelProgress>  
-//       </PanelColumnsContainer>
-//      ) 
-//   };
-
-//   render() {
-//     const { step, user } = this.state;
-
-
-//     let currentHeader = this.getHeader();
-//     let currentPanel = this.getCurrentPanel(); 
-
-//     return (
-//       <React.Fragment>
-//         <PanelContainer>
-//           {currentHeader}
-//           {currentPanel}
-//         </PanelContainer>
-//         {(step !== 1) && <button onClick={this.prev}>Back</button>}
-//         <button onClick={this.next}>Continue</button>
-//       </React.Fragment>
-//     )
-    
-//   }
-// }
 
 function App() {
   return (
