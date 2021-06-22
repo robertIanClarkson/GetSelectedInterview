@@ -23,11 +23,17 @@ import {
   PanelSectionHeader,
   PageNavBar,
   Logo,
-  PanelProgress
+  PanelProgress,
+  PanelSectionDescription,
+  PanelSectionBody,
+  Row,
+  Col,
+  PanelNavigation
 } from "./StyledComponents";
 
 import Select from 'react-select';
 import subjectData from './SubjectData';
+import { Button } from '@material-ui/core';
 
 
 const Onboard = () => {
@@ -44,6 +50,7 @@ const Onboard = () => {
   let { path, url } = useRouteMatch();
   return (
     <Router>
+      {/* <button onClick={() => console.log(user)}>state</button> */}
       <Switch>
         <Route exact path={path}>
           <Redirect to={`${path}/aboutyou`} />
@@ -58,7 +65,6 @@ const Onboard = () => {
           <SubjectDetails user={user} setUser={setUser} />
         </Route>
       </Switch>
-      <button onClick={() => console.log(user)}>state</button>
     </Router>
   );
   
@@ -66,31 +72,47 @@ const Onboard = () => {
 
 
 const AboutYou = ({user, setUser}) => {
+  const { push } = useHistory();
   return (
     <React.Fragment>
       <PanelContainer>
         <PanelColumnsContainer>
-          <PanelProgress primary>
-            About You
-          </PanelProgress>  
-          <PanelProgress>
-            Subjects
-          </PanelProgress>  
-          <PanelProgress>
-            Subject Details
-          </PanelProgress>  
+          <PanelProgress left primary>1 About You</PanelProgress>  
+          <PanelProgress center>2 Subjects</PanelProgress>  
+          <PanelProgress right>3 Subject Details</PanelProgress>  
         </PanelColumnsContainer>
         <PanelSection>
-          <PanelSectionTitle>
-            About You
-          </PanelSectionTitle>
-          <PanelMainColumn>
+          <PanelSectionTitle>About You</PanelSectionTitle>
+          <PanelSectionDescription>
+            Here is some hardcoded sample data. It allows you to travel to part (2)Subjects
+          </PanelSectionDescription>
+          <PanelSectionBody>
             <p>First Name: {user.firstName}</p>
             <p>Last Name: {user.lastName}</p>
-          </PanelMainColumn>
+          </PanelSectionBody>
         </PanelSection>
       </PanelContainer>
-      <Link to="/onboard/subjects" >next</Link>
+      <PanelNavigation>
+        <Button
+          style={{
+            color: "#000000",
+            backgroundColor: "#FFFFFF",
+            fontWeight: 700,
+            textTransform: "none"
+          }}
+          variant="contained" 
+          color="secondary" 
+          onClick={() => push("/onboarding/aboutyou")} >Back</Button>
+        <Button
+          style={{
+            color: "#FFFFFF",
+            backgroundColor: "#F68002",
+            fontWeight: 700,
+            textTransform: "none"
+          }}
+          variant="contained" 
+          onClick={() => push("/onboarding/subjects")} >Continue</Button>
+      </PanelNavigation>
     </React.Fragment>
     
   )
@@ -176,81 +198,127 @@ const Subjects = ({user, setUser}) => {
     courseOptions_1 = subjectData.find(ele => ele.name === user.subject_1.label).courses.map(ele => ({label: ele, value: ele.toLowerCase()}))
   }
 
+  const { push } = useHistory();
+
   return (
     <React.Fragment>
       <PanelContainer>
         <PanelColumnsContainer>
-          <PanelProgress>
-            About You
-          </PanelProgress>  
-          <PanelProgress primary>
-            Subjects
-          </PanelProgress>  
-          <PanelProgress>
-            Subject Details
-          </PanelProgress>  
+          <PanelProgress left >1 About You</PanelProgress>  
+          <PanelProgress center primary>2 Subjects</PanelProgress>  
+          <PanelProgress right>3 Subject Details</PanelProgress>  
         </PanelColumnsContainer>
         <PanelSection>
-          <PanelSectionTitle>
-            Subjects
-          </PanelSectionTitle>
-          <PanelMainColumn>
+          <PanelSectionTitle>Subjects</PanelSectionTitle>
+          <PanelSectionDescription>
             Select 2 subjects you're most qualified to teach. You can edit these or add more subjects later.
-            <Select 
-                defaultValue={user.subject_0}
-                options={subjectOptions_0} 
-                onChange={(subject) => setSubject(0, subject)} />
-            <Select 
-                value={user.courses_0}
-                options={courseOptions_0} 
-                onChange={(courses) => setCourses(0, courses)}
-                isMulti/>
-            {user.subject_0 !== null && <Select 
-                defaultValue={user.subject_1}
-                options={subjectOptions_1} 
-                onChange={(subject) => setSubject(1, subject)} />}
-            {user.subject_0 !== null && <Select 
-                value={user.courses_1}
-                options={courseOptions_1} 
-                onChange={(courses) => setCourses(1, courses)}
-                isMulti/>}
-                
-          </PanelMainColumn>
+          </PanelSectionDescription>
+          <PanelSectionBody>
+            <Row> 
+              <Col width={"30%"}>
+                <PanelSectionHeader>Subject</PanelSectionHeader>
+                <Select
+                  defaultValue={user.subject_0}
+                  options={subjectOptions_0} 
+                  onChange={(subject) => setSubject(0, subject)} />
+              </Col>
+              <Col width={"70%"}>
+                <PanelSectionHeader>Courses</PanelSectionHeader>
+                <Select 
+                    value={user.courses_0}
+                    options={courseOptions_0} 
+                    onChange={(courses) => setCourses(0, courses)}
+                    isMulti/>
+              </Col>
+            </Row>
+            {/* <Row>
+              <Col width={"30%"}>
+                <PanelSectionHeader>Subject</PanelSectionHeader>
+                {user.subject_0 !== null && <Select 
+                  defaultValue={user.subject_1}
+                  options={subjectOptions_1} 
+                  onChange={(subject) => setSubject(1, subject)} />}
+              </Col>
+              <Col width={"70%"}>
+                <PanelSectionHeader>Courses</PanelSectionHeader>
+                {user.subject_0 !== null && <Select 
+                  value={user.courses_1}
+                  options={courseOptions_1} 
+                  onChange={(courses) => setCourses(1, courses)}
+                  isMulti/>}
+              </Col>
+            </Row> */}
+          </PanelSectionBody>
         </PanelSection>
       </PanelContainer>
-      <Link to="/onboard/aboutyou">prev</Link>
-      <Link to="/onboard/subjectdetails">next</Link>
+      <PanelNavigation>
+        <Button
+            style={{
+              color: "#000000",
+              backgroundColor: "#FFFFFF",
+              fontWeight: 700,
+              textTransform: "none"
+            }}
+            variant="contained" 
+            color="secondary" 
+            onClick={() => push("/onboarding/aboutyou")} >Back</Button>
+        <Button
+            style={{
+              color: "#FFFFFF",
+              backgroundColor: "#F68002",
+              fontWeight: 700,
+              textTransform: "none"
+            }}
+            variant="contained" 
+            color="primary" 
+            onClick={() => push("/onboarding/subjectdetails")} >Continue</Button>
+      </PanelNavigation>
     </React.Fragment>
   )
 }
 
 
 const SubjectDetails = ({}) => {
+  const { push } = useHistory();
   return (
     <React.Fragment>
       <PanelContainer>
         <PanelColumnsContainer>
-          <PanelProgress>
-            About You
-          </PanelProgress>  
-          <PanelProgress>
-            Subjects
-          </PanelProgress>  
-          <PanelProgress primary>
-            Subject Details
-          </PanelProgress>  
+          <PanelProgress left>1 About You</PanelProgress>  
+          <PanelProgress center>2 Subjects</PanelProgress>  
+          <PanelProgress right primary>3 Subject Details</PanelProgress>  
         </PanelColumnsContainer>
         <PanelSection>
-          <PanelSectionTitle>
-            Subject Details
-          </PanelSectionTitle>
-          <PanelMainColumn>
-            
-            This is some sample text
-          </PanelMainColumn>
+          <PanelSectionTitle>Subject Details</PanelSectionTitle>
+          <PanelSectionDescription>
+            You successfully made it to the final section!
+          </PanelSectionDescription>
+          <PanelSectionBody>
+            From here, I would replace the "Continue" button, with a "Submit" button.
+            On submit, we would POST our data to the server to collect into the database.
+          </PanelSectionBody>
         </PanelSection>
       </PanelContainer>
-      <Link to="/onboard/subjects">prev</Link>
+      <PanelNavigation>
+        <Button
+          style={{
+            color: "#000000",
+            backgroundColor: "#FFFFFF",
+            fontWeight: 700,
+            textTransform: "none"
+          }}
+          variant="contained" 
+          onClick={() => push("/onboarding/subjects")} >Back</Button>
+        <Button
+          style={{
+            color: "#FFFFFF",
+            backgroundColor: "#F68002",
+            fontWeight: 700,
+            textTransform: "none"
+          }}
+          variant="contained"
+          onClick={() => push("/onboarding/subjectdetails")} >Continue</Button>
+      </PanelNavigation>
     </React.Fragment>
   );
 }
@@ -260,14 +328,14 @@ function App() {
     <Router>
       <PageContainer>
         <PageNavBar>
-          <Logo src="/logo.svg" />
+          <Logo src="/logo.png" />
         </PageNavBar>
         <PageContentContainer>
           <Switch>
             <Route exact path="/">
-              <Redirect to="/onboard" />
+              <Redirect to="/onboarding" />
             </Route>
-            <Route path="/onboard">
+            <Route path="/onboarding">
               <Onboard />
             </Route>
           </Switch>
