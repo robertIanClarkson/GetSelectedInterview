@@ -7,7 +7,6 @@ import {
   useRouteMatch,
   useHistory
 } from "react-router-dom";
-import './App.css';
 import {
   PageContainer,
   PageContentContainer,
@@ -24,10 +23,10 @@ import {
   Row,
   Col,
   PanelNavigation
-} from "./StyledComponents";
+} from "../shared/StyledComponents";
 
 import Select from 'react-select';
-import subjectData from './SubjectData';
+import subjectData from './Onboarding/SubjectData';
 import { Button } from '@material-ui/core';
 
 
