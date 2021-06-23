@@ -10,6 +10,7 @@ const AboutYouComponent = ({ user }) => {
       description={"Here is some hardcoded sample data. It allows you to travel to part (2)Subjects"}
       backAction={() => console.log("IGNORE", user)}
       continueAction={() => push("/onboarding/subjects")}
+      isContinueActive={true}
     >
       <h3>Current User State:</h3>
       <p>{JSON.stringify(user)}</p>

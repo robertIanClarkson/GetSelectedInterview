@@ -12,6 +12,7 @@ const SubjectDetailsComponent = ({ user }) => {
       description={"You successfully made it to the final section!"}
       backAction={() => push("/onboarding/subjects")}
       continueAction={() => console.log("SUBMIT:", user)}
+      isContinueActive={false}
     >
       <h3>Current User State:</h3>
       <p>{JSON.stringify(user)}</p>

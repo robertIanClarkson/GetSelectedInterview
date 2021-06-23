@@ -13,7 +13,7 @@ import {
 import BackButton from '../../shared/components/BackButton';
 import ContinueButton from '../../shared/components/ContinueButton';
 
-const WizardComponent = ({ progressTitles, title, description, children, backAction, continueAction, continueActive }) => {
+const WizardComponent = ({ progressTitles, title, description, children, backAction, continueAction, isContinueActive }) => {
   if (progressTitles.length !== 3) return (<h1>Error: Must provide 3 progressTitles</h1>)
 
   return (
@@ -39,7 +39,7 @@ const WizardComponent = ({ progressTitles, title, description, children, backAct
       </PanelContainer>
       <PanelNavigation>
         <BackButton onClick={backAction} />
-        <ContinueButton onClick={continueAction} isActive={continueActive} />
+        <ContinueButton onClick={continueAction} isActive={isContinueActive} />
       </PanelNavigation>
     </Fragment>
   );

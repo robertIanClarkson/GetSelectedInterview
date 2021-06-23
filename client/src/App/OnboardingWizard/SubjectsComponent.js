@@ -5,7 +5,7 @@ import WizardComponent from "../../shared/components/WizardComponent";
 import SingleSelect from "../../shared/components/SingleSelect";
 import MultiSelect from "../../shared/components/MultiSelect";
 
-const SubjectsComponent = ({ user, setUser }) => {
+const SubjectsComponent = ({ user, setUser, isSubjectsSet }) => {
 
   const { push } = useHistory();
 
@@ -33,9 +33,9 @@ const SubjectsComponent = ({ user, setUser }) => {
   const getAvailableSubjectLabels = () => {
     if (user.subjects.length === 0) return subjectData.map(ele => (ele.label));
     let difference = new Set(subjectData.map(ele => (ele.label)));
-    let _ = new Set(user.subjects.map(ele => (ele.label)));
-    for (let elem of _) {
-      difference.delete(elem);
+    let userSubjects = new Set(user.subjects.map(ele => (ele.label)));
+    for (let subject of userSubjects) {
+      difference.delete(subject);
     }
     return Array.from(difference);
   };
@@ -46,7 +46,8 @@ const SubjectsComponent = ({ user, setUser }) => {
       title={"Subjects"}
       description={"Select 2 subjects you're most qualified to teach. You can edit these or add more subjects later."}
       backAction={() => push("/onboarding/aboutyou")}
-      continueAction={() => push("/onboarding/subjectdetails")}>
+      continueAction={() => push("/onboarding/subjectdetails")}
+      isContinueActive={isSubjectsSet(2)} >
       <Row>
         <Col width={"30%"}>
           <SingleSelect

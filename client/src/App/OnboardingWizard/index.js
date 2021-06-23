@@ -38,7 +38,7 @@ const OnboardingWizard = () => {
           <AboutYouComponent user={user} />
         </Route>
         <Route path={`${path}/subjects`}>
-          <SubjectsComponent user={user} setUser={setUser} />
+          <SubjectsComponent user={user} setUser={setUser} isSubjectsSet={isSubjectsSet} />
         </Route>
         <Route path={`${path}/subjectdetails`}>
           {isSubjectsSet(2)
