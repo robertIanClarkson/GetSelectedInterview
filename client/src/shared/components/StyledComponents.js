@@ -56,18 +56,7 @@ export const PanelColumnsContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
 `;
-export const PanelMainColumn = styled.div`
-  flex-grow: 1;
-  width: 80%;
-  @media (max-width: 720px) {
-    width: 100%;
-  }
-`;
-export const PanelSideColumn = styled.div`
-  width: 270px;
-  margin-left: ${({ marginLeft }) => marginLeft && `20px`};
-  margin-right: ${({ marginRight }) => marginRight && `20px`};
-`;
+
 export const PanelSection = styled.div`
   padding: 24px;
   border-top: 1px solid #F1F5F7;
@@ -81,12 +70,12 @@ export const PanelProgress = styled.div`
   justify-content: center; 
   background: white;
   color: black;
-  padding: 18px;
+  padding: 24px;
   width: 100%;
   border: 1px solid #F1F5F7;
   font-weight: 700;
   ${props => {
-    if(props.primary) {
+    if (props.primary) {
       return css`
         background: #2E595C;
         color: white;
@@ -104,7 +93,6 @@ export const PanelProgress = styled.div`
   }}
 `;
 
-
 export const PanelSectionTitle = styled.h2`
   font-weight: 700;
   margin: 0px;
@@ -117,10 +105,11 @@ export const PanelSectionDescription = styled.h3`
 `;
 
 export const PanelSectionBody = styled.div`
+  word-wrap: break-word;
   color: #2E595C;
 `;
 
-export const PanelSectionHeader = styled.h4`
+export const SelectTitle = styled.h4`
   font-weight: 600;
   font-size: 1em;
   margin: 0 0 3px;
@@ -159,6 +148,7 @@ export const Row = styled.div`
 
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin: 0px;
   padding-bottom: 24px;
   @media (max-width: 720px) {
@@ -167,7 +157,7 @@ export const Row = styled.div`
 `;
 
 export const Col = styled.div`
-  padding: 10px;
+  // padding: 5px;
   width: ${({ width }) => width};
   @media (max-width: 720px) {
     width: auto;
