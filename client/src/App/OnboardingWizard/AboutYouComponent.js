@@ -4,12 +4,12 @@ import WizardComponent from "../../shared/components/WizardComponent";
 const AboutYouComponent = ({ user }) => {
   const { push } = useHistory();
   return (
-    <WizardComponent 
-        progressTitles={["About You", "Subjects", "Subject Details"]}
-        title={"About You"}
-        description={"Here is some hardcoded sample data. It allows you to travel to part (2)Subjects"}
-        backAction={() => console.log("IGNORE", user)}
-        continueAction={() => push("/onboarding/subjects")}
+    <WizardComponent
+      progressTitles={["About You", "Subjects", "Subject Details"]}
+      title={"About You"}
+      description={"Here is some hardcoded sample data. It allows you to travel to part (2)Subjects"}
+      backAction={() => console.log("IGNORE", user)}
+      continueAction={() => push("/onboarding/subjects")}
     >
       <h3>Current User State:</h3>
       <p>{JSON.stringify(user)}</p>

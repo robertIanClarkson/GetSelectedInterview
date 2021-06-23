@@ -6,7 +6,7 @@ const SubjectDetailsComponent = ({ user }) => {
   const { push } = useHistory();
 
   return (
-    <WizardComponent 
+    <WizardComponent
       progressTitles={["About You", "Subjects", "Subject Details"]}
       title={"Subject Details"}
       description={"You successfully made it to the final section!"}

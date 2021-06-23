@@ -86,7 +86,7 @@ export const PanelProgress = styled.div`
   border: 1px solid #F1F5F7;
   font-weight: 700;
   ${props => {
-    if(props.primary) {
+    if (props.primary) {
       return css`
         background: #2E595C;
         color: white;
@@ -160,7 +160,7 @@ export const Row = styled.div`
   display: flex;
   flex-direction: row;
   margin: 0px;
-  padding-bottom: 24px;
+  padding-bottom: 12px;
   @media (max-width: 720px) {
     flex-direction: column;
   }

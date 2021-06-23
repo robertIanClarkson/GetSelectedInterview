@@ -12,7 +12,7 @@ import SubjectsComponent from './SubjectsComponent';
 import SubjectDetailsComponent from './SubjectDetailsComponent';
 
 const OnboardingWizard = () => {
-  
+
   const [user, setUser] = useState({
     firstName: "Robert",
     lastName: "Clarkson",
@@ -22,9 +22,14 @@ const OnboardingWizard = () => {
 
   let { path } = useRouteMatch();
 
+  const isSubjectsSet = (n) => {
+    if (user.subjects.length < n) return false;
+    let completedSubjects = user.subjects.filter((subject) => (subject.courses.length > 0))
+    return completedSubjects.length >= n;
+  };
+
   return (
     <Router>
-      {/* <button onClick={() => console.log(user)}>state</button> */}
       <Switch>
         <Route exact path={path}>
           <Redirect to={`${path}/aboutyou`} />
@@ -33,14 +38,16 @@ const OnboardingWizard = () => {
           <AboutYouComponent user={user} />
         </Route>
         <Route path={`${path}/subjects`}>
-          <SubjectsComponent user={user} setUser={setUser} n={2} />
+          <SubjectsComponent user={user} setUser={setUser} />
         </Route>
         <Route path={`${path}/subjectdetails`}>
-          <SubjectDetailsComponent user={user} />
+          {isSubjectsSet(2)
+            ? <SubjectDetailsComponent user={user} />
+            : <Redirect to={`${path}/subjects`} />}
         </Route>
       </Switch>
     </Router>
-  ); 
+  );
 }
 
 export default OnboardingWizard;

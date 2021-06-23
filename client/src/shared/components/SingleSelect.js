@@ -6,12 +6,12 @@ const SingleSelect = ({ title, value, options, onChange }) => {
   return (
     <>
       <SelectTitle>{title}</SelectTitle>
-      <Select 
+      <Select
         defaultValue={{
-          label: value, 
+          label: value,
           value: value
         }}
-        options={options.map(ele => ({label: ele, value: ele.toLowerCase()}))}
+        options={options.map(ele => ({ label: ele, value: ele.toLowerCase() }))}
         onChange={onChange}
       />
     </>
