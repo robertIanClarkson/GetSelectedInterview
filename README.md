@@ -1,5 +1,7 @@
 # GetSelectedInterview
 
+- DEPLOYED: https://stormy-hamlet-77625.herokuapp.com/
+
 - Developed June 2021
 - Node.JS Version=14.17.1 (stable)
 - NPM Version=7.18.1 (stable)
