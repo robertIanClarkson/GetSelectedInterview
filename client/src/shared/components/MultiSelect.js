@@ -38,7 +38,7 @@ const MultiSelect = ({ title, values, options, onChange }) => {
         value={values.map(ele => ({ label: ele, value: ele.toLowerCase() }))}
         options={options}
         onChange={onChange}
-        closeMenuOnSelect={false}
+        closeMenuOnSelect={true}
         placeholder={''}
         isClearable={false}
         isMulti

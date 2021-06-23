@@ -57,7 +57,7 @@ const SubjectsComponent = ({ user, setUser, isSubjectsSet }) => {
             onChange={e => setUserSubject(0, e.label)} />
         </Col>
         {user.subjects.length > 0 &&
-          <Col width="70%">
+          <Col width="68%">
             <MultiSelect
               title={"Courses"}
               values={user.subjects[0].courses}
@@ -75,7 +75,7 @@ const SubjectsComponent = ({ user, setUser, isSubjectsSet }) => {
               onChange={e => setUserSubject(1, e.label)} />
           </Col>
           {user.subjects.length > 1 &&
-            <Col width="70%">
+            <Col width="68%">
               <MultiSelect
                 title={"Courses"}
                 values={user.subjects[1].courses}
