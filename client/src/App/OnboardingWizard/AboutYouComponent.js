@@ -11,8 +11,8 @@ const AboutYouComponent = ({ user }) => {
         backAction={() => console.log("IGNORE", user)}
         continueAction={() => push("/onboarding/subjects")}
     >
-      <p>First Name: {user.firstName}</p>
-      <p>Last Name: {user.lastName}</p>
+      <h3>Current User State:</h3>
+      <p>{JSON.stringify(user)}</p>
     </WizardComponent>
   );
 };

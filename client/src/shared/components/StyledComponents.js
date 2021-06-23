@@ -104,7 +104,6 @@ export const PanelProgress = styled.div`
   }}
 `;
 
-
 export const PanelSectionTitle = styled.h2`
   font-weight: 700;
   margin: 0px;
@@ -117,6 +116,7 @@ export const PanelSectionDescription = styled.h3`
 `;
 
 export const PanelSectionBody = styled.div`
+  word-wrap: break-word;
   color: #2E595C;
 `;
 

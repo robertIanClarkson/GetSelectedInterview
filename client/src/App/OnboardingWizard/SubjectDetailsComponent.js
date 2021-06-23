@@ -13,8 +13,8 @@ const SubjectDetailsComponent = ({ user }) => {
       backAction={() => push("/onboarding/subjects")}
       continueAction={() => console.log("SUBMIT:", user)}
     >
-      <p>From here, I would replace the "Continue" button, with a "Submit" button.
-            On submit, we would POST our data to the server to collect into the database.</p>
+      <h3>Current User State:</h3>
+      <p>{JSON.stringify(user)}</p>
     </WizardComponent>
   );
 };
