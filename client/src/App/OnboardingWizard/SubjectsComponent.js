@@ -1,12 +1,6 @@
 import { useHistory } from "react-router-dom";
-
-import Select from 'react-select';
 import subjectData from '../../shared/data/SubjectData';
-
-import { PanelSectionHeader, Row, Col } from '../../shared/components/StyledComponents';
-
-import { useEffect } from "react";
-
+import { Row, Col } from '../../shared/components/StyledComponents';
 import WizardComponent from "../../shared/components/WizardComponent";
 import SingleSelect from "../../shared/components/SingleSelect";
 import MultiSelect from "../../shared/components/MultiSelect";
