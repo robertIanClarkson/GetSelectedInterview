@@ -2,7 +2,7 @@ import { useHistory } from "react-router-dom";
 
 import WizardComponent from "../../shared/components/WizardComponent";
 
-const SubjectDetailsComponent = ({user, setUser}) => {
+const SubjectDetailsComponent = ({ user }) => {
   const { push } = useHistory();
 
   return (

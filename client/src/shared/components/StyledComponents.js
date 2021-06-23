@@ -120,7 +120,7 @@ export const PanelSectionBody = styled.div`
   color: #2E595C;
 `;
 
-export const PanelSectionHeader = styled.h4`
+export const SelectTitle = styled.h4`
   font-weight: 600;
   font-size: 1em;
   margin: 0 0 3px;

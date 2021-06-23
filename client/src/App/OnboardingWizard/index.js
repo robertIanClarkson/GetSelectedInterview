@@ -7,21 +7,21 @@ import {
   useRouteMatch
 } from "react-router-dom";
 
-import AboutYou from './AboutYouComponent';
-import Subjects from './SubjectsComponent';
-import SubjectDetails from './SubjectDetailsComponent';
+import AboutYouComponent from './AboutYouComponent';
+import SubjectsComponent from './SubjectsComponent';
+import SubjectDetailsComponent from './SubjectDetailsComponent';
 
-const Onboarding = () => {
+const OnboardingWizard = () => {
+  
   const [user, setUser] = useState({
     firstName: "Robert",
     lastName: "Clarkson",
-    subject_0: null,
-    subject_1: null,
-    courses_0: [],
-    courses_1: []
+    zipCode: "94132",
+    subjects: []
   });
 
   let { path } = useRouteMatch();
+
   return (
     <Router>
       {/* <button onClick={() => console.log(user)}>state</button> */}
@@ -30,17 +30,17 @@ const Onboarding = () => {
           <Redirect to={`${path}/aboutyou`} />
         </Route>
         <Route path={`${path}/aboutyou`}>
-          <AboutYou user={user} setUser={setUser} />
+          <AboutYouComponent user={user} />
         </Route>
         <Route path={`${path}/subjects`}>
-          <Subjects user={user} setUser={setUser} />
+          <SubjectsComponent user={user} setUser={setUser} n={2} />
         </Route>
         <Route path={`${path}/subjectdetails`}>
-          <SubjectDetails user={user} setUser={setUser} />
+          <SubjectDetailsComponent user={user} />
         </Route>
       </Switch>
     </Router>
   ); 
 }
 
-export default Onboarding;
+export default OnboardingWizard;

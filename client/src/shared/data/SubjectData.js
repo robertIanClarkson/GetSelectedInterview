@@ -2,7 +2,7 @@
 
 const subjects = [
   {
-    name: "English",
+    label: "English",
     courses: [
       "Journalism",
       "Literacy",
@@ -10,11 +10,29 @@ const subjects = [
     ]
   },
   {
-    name: "Math",
+    label: "Math",
     courses: [
       "Algebra",
       "Algebra II",
       "Calculus"
+    ]
+  },
+  {
+    label: "Spanish",
+    courses: [
+      "Spanish I",
+      "Spanish II",
+      "Spanish III",
+      "Spanish Native"
+    ]
+  },
+  {
+    label: "Japanese",
+    courses: [
+      "Japanese I",
+      "Japanese II",
+      "Japanese III",
+      "Japanese Native"
     ]
   },
 ];

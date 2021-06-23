@@ -1,5 +1,5 @@
 import React from 'react';
-import Onboarding from './Onboarding';
+import OnboardingWizard from './OnboardingWizard';
 
 import {
   BrowserRouter as Router,
@@ -30,7 +30,7 @@ function App() {
               <Redirect to="/onboarding" />
             </Route>
             <Route path="/onboarding">
-              <Onboarding />
+              <OnboardingWizard />
             </Route>
           </Switch>
         </PageContentContainer>
