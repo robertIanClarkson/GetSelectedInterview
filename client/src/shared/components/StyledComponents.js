@@ -20,11 +20,6 @@ export const PageContentContainer = styled.div`
   }
 `;
 
-export const PageTitle = styled.h1`
-  font-size: 24px;
-  margin-top: 0px;
-`;
-
 export const PageNavBar = styled.div`
   background: #FFFFFF;
   // box-shadow: 0px 3px 6px #0000000d;
@@ -46,12 +41,7 @@ export const PanelContainer = styled.div`
   margin-bottom: 24px;
   min-height: 400px;
 `;
-export const PanelContainerHeading = styled.div`
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 16px;
-  }
-`;
+
 export const PanelColumnsContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -109,12 +99,6 @@ export const PanelSectionBody = styled.div`
   color: #2E595C;
 `;
 
-export const SelectTitle = styled.h4`
-  font-weight: 600;
-  font-size: 1em;
-  margin: 0 0 3px;
-`;
-
 export const PanelNavigation = styled.div`
   display: flex;
   flex-direction: row;
@@ -123,26 +107,21 @@ export const PanelNavigation = styled.div`
 
 /*
 |--------------------------------------------------------------------------
-| Form Inputs
+| Forms
 |--------------------------------------------------------------------------
 */
 
-export const StyledTextInput = styled.input`
-  width: 100%;
-  height: 36px;
-  margin: auto;
-  padding: 10px;
-  box-sizing: border-box;
-  outline: none;
-  border-radius: 4px;
-  border: 1px solid #e3eaef;
+export const SelectTitle = styled.h4`
+  font-weight: 600;
+  font-size: 1em;
+  margin: 0 0 3px;
 `;
 
-export const Logo = styled.img`
-  margin: 5px;
-  height: 50px;
-  padding-left: 20px;
-`;
+/*
+|--------------------------------------------------------------------------
+| Basic Grid
+|--------------------------------------------------------------------------
+*/
 
 export const Row = styled.div`
 
@@ -162,4 +141,16 @@ export const Col = styled.div`
   @media (max-width: 720px) {
     width: auto;
   }
+`;
+
+/*
+|--------------------------------------------------------------------------
+| Miscellaneous
+|--------------------------------------------------------------------------
+*/
+
+export const Logo = styled.img`
+  margin: 5px;
+  height: 50px;
+  padding-left: 20px;
 `;

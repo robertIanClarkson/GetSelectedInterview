@@ -14,8 +14,6 @@ import BackButton from '../../shared/components/BackButton';
 import ContinueButton from '../../shared/components/ContinueButton';
 
 const WizardComponent = ({ progressTitles, title, description, children, backAction, continueAction, isContinueActive }) => {
-  if (progressTitles.length !== 3) return (<h1>Error: Must provide 3 progressTitles</h1>)
-
   return (
     <Fragment>
       <PanelContainer>

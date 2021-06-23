@@ -2,7 +2,10 @@ import { useHistory } from "react-router-dom";
 import WizardComponent from "../../shared/components/WizardComponent";
 
 const AboutYouComponent = ({ user }) => {
+
+  // push is used for route navigation
   const { push } = useHistory();
+  
   return (
     <WizardComponent
       progressTitles={["About You", "Subjects", "Subject Details"]}

@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import WizardComponent from "../../shared/components/WizardComponent";
 
 const SubjectDetailsComponent = ({ user }) => {
+
+  // push is used for route navigation
   const { push } = useHistory();
 
   return (
